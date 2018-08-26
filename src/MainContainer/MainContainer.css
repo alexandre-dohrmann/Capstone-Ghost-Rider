@@ -1,0 +1,22 @@
+.mainContainer {
+  background-color: rgba(24,24,24,0.9);
+  padding-bottom: 120px;
+}
+
+
+.logo {
+  width: auto;
+  height: 200px;
+}
+
+.logo-small {
+  width: auto;
+  height: 40px;
+}
+
+.copyright {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 16px;
+  color: white;
+  text-transform: uppercase;
+}

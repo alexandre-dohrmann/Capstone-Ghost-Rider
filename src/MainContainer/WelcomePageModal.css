@@ -1,0 +1,49 @@
+.welcomePageModal {
+  background-color: rgba(220, 56, 50, 0.9);
+  color: white;
+  font-weight: 600;
+  width: auto;
+  height: 600px;
+  text-align: center;
+  box-shadow: 1px 1px 1px 1px gray;
+  border-radius: 15px;
+
+}
+
+.welcomePageModal h2 {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  background-color: rgba(24,24,24,1.0);
+  padding: 20px;
+
+}
+
+.welcomePageModal h4 {
+  font-family: 'Anton', sans-serif;
+  font-size: 35px;
+  text-transform: uppercase;
+}
+
+.welcomePageModal h6 {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 25px;
+}
+
+.welcomePageModal p {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.f458 {
+  width: auto;
+  padding: 15px;
+  height: 200px;
+}
+
+.gRider {
+  max-height: 100px;
+}
