@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import Aux from '../hoc/Aux';
 import CarsContainer from '../CarsContainer/CarsContainer';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -6,6 +7,8 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import NavbarComponent from '../Navbar/navbar';
 import classes from './MainContainer.css';
 import WelcomePageModal from './WelcomePageModal';
+import { loginAction } from '../actions/actions';
+
 
 
 class MainContainer extends Component {
@@ -78,30 +81,12 @@ class MainContainer extends Component {
     console.log(this.props.csrf_token)
     e.preventDefault();
     const data = { ...this.state, csrfmiddlewaretoken: this.props.csrf_token };
-    console.log(data)
-    const loginResponse = await fetch('https://ghostrider-react-django-python.herokuapp.com/get_auth_token/', {
-      credentials: 'include',
-      method: 'POST',
-      body: JSON.stringify(
-        data),
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': this.props.csrf_token,
-      }
-    });
-
-    const parsedResponse = await loginResponse.json();
-    console.log("TOKEN :", parsedResponse.token);
-    this.setState({ auth_token: parsedResponse.token })
-
-    if (parsedResponse.data === 'login successful') {
-      // switch our route.
-      // Programmatically switching to a new route.
-      this.props.history.push('/');
-    }
-
+    this.props.triggerLogin(data)
   }
+
+
   render() {
+    console.log('MAIN', this.props.csrf_token);
     return (
       <div className='mainContainer'>
         <div className="welcomePage">
@@ -109,7 +94,6 @@ class MainContainer extends Component {
           <Modal isOpen={this.state.modal} toggle={this.toggle}>
             <ModalHeader toggle={this.toggle}></ModalHeader>
             <ModalBody>
-
               <WelcomePageModal />
 
             </ModalBody>
@@ -120,7 +104,7 @@ class MainContainer extends Component {
         </div>
         <NavbarComponent username={this.state.username} password={this.state.password} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleRegistration={this.handleRegistration} />
         <img src={require('./Ghost-Rider-Final.png')} className="logo" />
-        <CarsContainer csrf_token={this.props.csrf_token} auth_token={this.state.auth_token} /><br />
+        <CarsContainer auth_token={this.state.auth_token} /><br />
         <small className="copyright">&copy; 2018 (g)HOST/RIDER<br /><img src={require('./Ghost-Rider-Final.png')} className="logo-small" />
         </small>
       </div>
@@ -129,4 +113,17 @@ class MainContainer extends Component {
   }
 }
 
-export default MainContainer;
+const mapStateToProps = (state) => {
+  return {
+    csrf_token: state.auth.csrf_token,
+
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    triggerLogin: (data) => { loginAction(dispatch, data) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);

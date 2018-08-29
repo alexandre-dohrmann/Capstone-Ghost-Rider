@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { connect } from 'react-redux';
 import Cars from './Cars';
 import CreateCar from './CRUDCars/AddCar';
 import EditCar from './CRUDCars/EditCar';
 import EditComment from './CRUDComments/EditComment';
 import classes from './CarsContainer.css';
+import { fetchCsrfTokenAction, addCarAction, deleteCarAction } from '../actions/actions';
+import { getCarsAction } from '../actions/actions';
+
+
+
 
 class CarsContainer extends Component {
   constructor() {
@@ -54,75 +60,35 @@ class CarsContainer extends Component {
 
 
   componentDidMount() {
-    this.getCars().then((cars) => {
-      this.setState({ cars: cars })
-    }).catch((err) => {
-      console.log(err);
-    });
-    this.getComment().then((comments) => {
-      this.setState({ comments: comments })
-    }).catch((err) => {
-      console.log(err);
-    })
+    // this.getCars().then((cars) => {
+    //   this.setState({ cars: cars })
+    // }).catch((err) => {
+    //   console.log(err);
+    // });
+    // this.getComment().then((comments) => {
+    //   this.setState({ comments: comments })
+    // }).catch((err) => {
+    //   console.log(err);
+    // })
   }
 
   //======================== Cars API calls ==================================================
 
-  getCars = async () => {
-    const cars = await fetch('https://ghostrider-react-django-python.herokuapp.com/api/cars/');
-    const carsJson = await cars.json();
-    console.log(carsJson, 'cars JSON');
-    console.log(cars, 'this is cars');
-    return carsJson
-  }
 
 
   addCar = async (car, e) => {
     e.preventDefault();
     console.log('### CAR ###', car);
-    const data = { ...car, csrfmiddlewaretoken: this.props.csrf_token }
-    try {
-      const createdCar = await fetch('https://ghostrider-react-django-python.herokuapp.com/api/cars/', {
-        method: 'POST',
-        body: JSON.stringify(data),
-
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': this.props.csrf_token,
-          'Authorization': `Token ${this.props.auth_token}`
-        }
-      });
-      const createdCarJson = await createdCar.json();
-      this.setState({ cars: [...this.state.cars, createdCarJson] });
-    } catch (err) {
-      console.log(err)
-    }
+    const data = { ...car, csrfmiddlewaretoken: this.props.csrf_token, auth_token: this.props.auth_token }
+    this.props.triggerAddCarAction(data);
   }
 
 
   deleteCar = async (id, e) => {
     e.preventDefault();
     console.log('deleteCar function is being called, this is the id: ', id);
-    try {
-      const deleteCar = await fetch('https://ghostrider-react-django-python.herokuapp.com/api/cars/' + id, {
-        method: 'DELETE',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': this.props.csrf_token,
-          'Authorization': `Token ${this.props.auth_token}`
-        }
-      });
-      console.log(deleteCar, 'this is delete car');
-
-      if (deleteCar.status === 204) {
-        this.setState({ cars: this.state.cars.filter((car, i) => car.id !== id) });
-      } else {
-        console.log('you fucked');
-      }
-    } catch (err) {
-      console.log(err);
-    }
+    const data = { id: id, csrfmiddlewaretoken: this.props.csrf_token, auth_token: this.props.auth_token }
+    this.props.triggerDeleteCarAction(data);
   }
 
 
@@ -187,13 +153,13 @@ class CarsContainer extends Component {
 
   //======================== Comments API calls ==================================================
 
-  getComment = async () => {
-    const comments = await fetch('https://ghostrider-react-django-python.herokuapp.com/api/comments/');
-    const commentsJson = await comments.json();
-    console.log(commentsJson, 'comments JSON');
-    console.log(comments, 'this is comments');
-    return commentsJson
-  }
+  // getComment = async () => {
+  //   const comments = await fetch('https://ghostrider-react-django-python.herokuapp.com/api/comments/');
+  //   const commentsJson = await comments.json();
+  //   console.log(commentsJson, 'comments JSON');
+  //   console.log(comments, 'this is comments');
+  //   return commentsJson
+  // }
 
 
   addComment = async (comment, e) => {
@@ -317,7 +283,7 @@ class CarsContainer extends Component {
           </Modal>
         </div>
 
-        <Cars cars={this.state.cars}
+        <Cars
           deleteCar={this.deleteCar}
           showModal={this.showModal}
           comments={this.state.comments}
@@ -341,4 +307,23 @@ class CarsContainer extends Component {
   }
 }
 
-export default CarsContainer;
+const mapStateToProps = (state) => {
+  return {
+    csrf_token: state.auth.csrf_token,
+    auth_token: state.auth.auth_token,
+    cars: state.cars.carsList
+
+
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchCsrfToken: () => { fetchCsrfTokenAction(dispatch) },
+    triggerAddCarAction: (data) => { addCarAction(dispatch, data) },
+    triggerDeleteCarAction: (data) => { deleteCarAction(dispatch, data) },
+
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CarsContainer);

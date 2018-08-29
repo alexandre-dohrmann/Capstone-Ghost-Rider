@@ -1,45 +1,29 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './App.css';
 
 import MainContainer from './MainContainer/MainContainer';
+import { fetchCsrfTokenAction } from './actions/actions';
 
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      csrf_token: ''
-    };
-  }
-
-  getToken = async () => {
-    const token = await fetch('https://ghostrider-react-django-python.herokuapp.com/api/get_csrf/', {
-      credentials: 'include'
-    })
-    const parsedToken = await token.json()
-    console.log(parsedToken, 'parsed token #####');
-    return parsedToken.token
-
-  }
-
-
   componentDidMount() {
-    this.getToken().then((token) => {
-      this.setState({
-        csrf_token: token
-      })
-    })
+    this.props.fetchCsrfToken();
   }
 
   render() {
     return (
       <div className="App">
-        <MainContainer csrf_token={this.state.csrf_token}>
-
-        </MainContainer>
+        <MainContainer />
       </div>
     );
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchCsrfToken: () => { fetchCsrfTokenAction(dispatch) },
+  }
+};
+
+export default connect(null, mapDispatchToProps)(App);
