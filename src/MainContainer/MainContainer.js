@@ -19,6 +19,8 @@ class MainContainer extends Component {
       password: '',
       auth_token: '',
       modal: true,
+      isLogged: false,
+
     }
     this.toggle = this.toggle.bind(this);
   }
@@ -30,7 +32,7 @@ class MainContainer extends Component {
 
   componentDidMount() {
     // if (this.state.logged_in) {
-    //   fetch('http://https://ghostrider-react-django-python.herokuapp.com/get_auth_token/', {
+    //   fetch('http://localhost:8000/get_auth_token/', {
     //     headers: {
     //     }
     //   })
@@ -43,7 +45,7 @@ class MainContainer extends Component {
   }
 
   handleChange = (e) => {
-    console.log(e.currentTarget.value);
+    // console.log(e.currentTarget.value);
     this.setState({ [e.currentTarget.name]: e.currentTarget.value });
 
   }
@@ -53,7 +55,7 @@ class MainContainer extends Component {
     e.preventDefault();
     const data = { ...this.state, csrfmiddlewaretoken: this.props.csrf_token };
     console.log(data)
-    const registrationResponse = await fetch('https://ghostrider-react-django-python.herokuapp.com/api/users/', {
+    const registrationResponse = await fetch('http://localhost:8000/api/users/', {
       credentials: 'include',
       method: 'POST',
       body: JSON.stringify(
@@ -63,30 +65,49 @@ class MainContainer extends Component {
         'X-CSRFToken': this.props.csrf_token,
       }
     });
-
-    const parsedResponse = await registrationResponse.json();
-    console.log('## Parsed RESPONSE', parsedResponse);
-    this.setState({ auth_token: parsedResponse.token })
-    console.log(parsedResponse.status, '### PARSED RESPONSE');
-
-    if (parsedResponse.status === 201) {
+    
+    if (registrationResponse.status === 201) {
+      const data = { ...this.state, csrfmiddlewaretoken: this.props.csrf_token };
+      // console.log(parsedResponse.status);
+      // const parsedResponse = await registrationResponse.json();
       // switch our route.
       // Programmatically switching to a new route.
-      this.props.history.push('/');
+      this.props.triggerLogin(data)
+      this.setState({
+        // auth_token: parsedResponse.token,
+        isLogged: true
+      })
+      // this.props.history.push('/');
     }
 
   }
+    // console.log('### Registration response :', registrationResponse);
+    // console.log('### Registration response. status: ', registrationResponse.status);
+    // console.log('## Parsed RESPONSE', parsedResponse);
+
+    // console.log(parsedResponse.status, '### PARSED RESPONSE - status');
+    // console.log(parsedResponse, '### PARSED RESPONSE');
+
+
+    // console.log('### 2 - Parsed Response status: ', parsedResponse.status);
+  
 
   handleSubmit = async (e) => {
     console.log(this.props.csrf_token)
     e.preventDefault();
     const data = { ...this.state, csrfmiddlewaretoken: this.props.csrf_token };
     this.props.triggerLogin(data)
+    
+    this.setState({
+      isLogged: true
+    })
   }
 
 
   render() {
-    console.log('MAIN', this.props.csrf_token);
+    console.log('## Auth CSRF is: ', this.props.csrf_token);
+    console.log('## Auth Token is: ', this.state.auth_token);
+    
     return (
       <div className='mainContainer'>
         <div className="welcomePage">
@@ -102,7 +123,7 @@ class MainContainer extends Component {
             </ModalFooter>
           </Modal>
         </div>
-        <NavbarComponent username={this.state.username} password={this.state.password} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleRegistration={this.handleRegistration} />
+        <NavbarComponent username={this.state.username} password={this.state.password} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleRegistration={this.handleRegistration} isLogged={this.state.isLogged} />
         <img src={require('./Ghost-Rider-Final.png')} className="logo" />
         <CarsContainer auth_token={this.state.auth_token} /><br />
         <small className="copyright">&copy; 2018 (g)HOST/RIDER<br /><img src={require('./Ghost-Rider-Final.png')} className="logo-small" />

@@ -52,7 +52,7 @@ class Cars extends Component {
               handleCommentFormChange={props.handleCommentFormChange}
               commentToEdit={props.commentToEdit} />
             <div className='createCommentComp'>
-              <CreateComment carID={'https://ghostrider-react-django-python.herokuapp.com/api/cars/' + car.id} addComment={props.addComment} />
+              <CreateComment carID={'http://localhost:8000/api/cars/' + car.id} addComment={props.addComment} />
             </div><br />
             <hr />
             <h4 className="update-delete">Update/Delete Entry<br />(Available for Poster ONLY)</h4>

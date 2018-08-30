@@ -126,7 +126,7 @@ class CarsContainer extends Component {
   addComment = async (comment, e) => {
     e.preventDefault();
     try {
-      const createdComment = await fetch('https://ghostrider-react-django-python.herokuapp.com/api/comments/', {
+      const createdComment = await fetch('http://localhost:8000/api/comments/', {
         method: 'POST',
         body: JSON.stringify(comment),
         headers: {
@@ -147,7 +147,7 @@ class CarsContainer extends Component {
     e.preventDefault();
     console.log('deleteComment function is being called, this is the id: ', id);
     try {
-      const deleteComment = await fetch('https://ghostrider-react-django-python.herokuapp.com/api/comments/' + id, {
+      const deleteComment = await fetch('http://localhost:8000/api/comments/' + id, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -185,7 +185,7 @@ class CarsContainer extends Component {
     console.log('close and edit');
     e.preventDefault();
     try {
-      const editResponse = await fetch('https://ghostrider-react-django-python.herokuapp.com/api/comments/' + this.state.editCommentId, {
+      const editResponse = await fetch('http://localhost:8000/api/comments/' + this.state.editCommentId, {
         method: 'PUT',
         body: JSON.stringify(this.state.commentToEdit),
         headers: {

@@ -7,6 +7,7 @@ const initialState = {
     auth_token: '',
     username: '',
     password: '',
+    isLogged: false,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -14,14 +15,18 @@ const authReducer = (state = initialState, action) => {
         case FETCH_CSRF_TOKEN:
             return {
                 ...state,
-                csrf_token: action.payload
+                csrf_token: action.payload,
+                isLogged: true
+
             };
         case LOGIN_ACTION:
             console.log("THIS HAS BEEN TRIGGERED FOR CASE LOGIN ACTION")
             console.log(action.payload)
             return {
                 ...state,
-                auth_token: action.payload.token
+                auth_token: action.payload.token,
+                isLogged: true
+
             };
         default:
             return state;
