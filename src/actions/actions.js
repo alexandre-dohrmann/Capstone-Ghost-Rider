@@ -3,6 +3,7 @@ import { LOGIN_ACTION } from './actionTypes';
 import { FETCH_CARS } from './actionTypes';
 import { ADD_CAR_ACTION } from './actionTypes';
 import { DELETE_CAR_ACTION } from './actionTypes';
+import { EDIT_CAR_ACTION } from './actionTypes';
 
 
 
@@ -94,7 +95,32 @@ export const deleteCarAction = async (dispatch, data) => {
             payload: data.id
         });
         console.log("SUCCESFUL DELETE")
-        // this.setState({ cars: this.props.cars.filter((car, i) => car.id !== id) });
+    } else {
+        console.log('you fucked');
+    }
+};
+
+export const editCarAction = async (dispatch, data) => {
+    console.log(data)
+    const editResponse = await fetch('https://ghostrider-react-django-python.herokuapp.com/api/cars/' + data.editCarId, {
+        method: 'PUT',
+        body: JSON.stringify(data.carToEdit),
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': data.csrfmiddlewaretoken,
+            'Authorization': `Token ${data.auth_token}`
+        }
+    });
+    const editedCarJson = await editResponse.json();
+    console.log('## Parsed RESPONSE', editedCarJson);
+    console.log(editResponse);
+    if (editResponse.status === 200) {
+        dispatch({
+            type: EDIT_CAR_ACTION,
+            payload: editedCarJson
+        });
+        console.log("SUCCESFUL EDIT")
     } else {
         console.log('you fucked');
     }

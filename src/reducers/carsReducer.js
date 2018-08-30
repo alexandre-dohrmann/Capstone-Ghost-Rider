@@ -1,6 +1,8 @@
 import { FETCH_CARS } from '../actions/actionTypes';
 import { ADD_CAR_ACTION } from '../actions/actionTypes';
 import { DELETE_CAR_ACTION } from '../actions/actionTypes';
+import { EDIT_CAR_ACTION } from '../actions/actionTypes';
+
 
 
 
@@ -15,6 +17,7 @@ const initialState = {
         img_url: '',
         description: '',
     },
+    modal: false
 };
 
 const carsReducer = (state = initialState, action) => {
@@ -36,6 +39,17 @@ const carsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 carsList: state.carsList.filter((car, i) => car.id !== action.payload)
+            };
+        case EDIT_CAR_ACTION:
+            console.log('CarsReducer Stage - EDITING THE CAR');
+            return {
+                ...state,
+                carsList: state.carsList.map((car) => {
+                    if (car.id === action.payload.id) {
+                        return action.payload
+                    }
+                    return car
+                })
             };
         default:
             return state;

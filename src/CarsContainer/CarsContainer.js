@@ -6,8 +6,7 @@ import CreateCar from './CRUDCars/AddCar';
 import EditCar from './CRUDCars/EditCar';
 import EditComment from './CRUDComments/EditComment';
 import classes from './CarsContainer.css';
-import { fetchCsrfTokenAction, addCarAction, deleteCarAction } from '../actions/actions';
-import { getCarsAction } from '../actions/actions';
+import { fetchCsrfTokenAction, addCarAction, deleteCarAction, editCarAction } from '../actions/actions';
 
 
 
@@ -60,16 +59,7 @@ class CarsContainer extends Component {
 
 
   componentDidMount() {
-    // this.getCars().then((cars) => {
-    //   this.setState({ cars: cars })
-    // }).catch((err) => {
-    //   console.log(err);
-    // });
-    // this.getComment().then((comments) => {
-    //   this.setState({ comments: comments })
-    // }).catch((err) => {
-    //   console.log(err);
-    // })
+
   }
 
   //======================== Cars API calls ==================================================
@@ -78,7 +68,6 @@ class CarsContainer extends Component {
 
   addCar = async (car, e) => {
     e.preventDefault();
-    console.log('### CAR ###', car);
     const data = { ...car, csrfmiddlewaretoken: this.props.csrf_token, auth_token: this.props.auth_token }
     this.props.triggerAddCarAction(data);
   }
@@ -86,14 +75,12 @@ class CarsContainer extends Component {
 
   deleteCar = async (id, e) => {
     e.preventDefault();
-    console.log('deleteCar function is being called, this is the id: ', id);
     const data = { id: id, csrfmiddlewaretoken: this.props.csrf_token, auth_token: this.props.auth_token }
     this.props.triggerDeleteCarAction(data);
   }
 
 
   showModal = (id, e) => {
-    // i comes before e, when called with bind
     this.toggle1();
     const carToEdit = this.state.cars.find((car) => car.id === id)
     console.log(carToEdit, ' carToEdit')
@@ -108,39 +95,13 @@ class CarsContainer extends Component {
 
   closeAndEdit = async (e) => {
     console.log('close and edit');
-    console.log(this.state.carToEdit)
     e.preventDefault();
-    try {
-      const editResponse = await fetch('https://ghostrider-react-django-python.herokuapp.com/api/cars/' + this.state.editCarId, {
-        method: 'PUT',
-        body: JSON.stringify(this.state.carToEdit),
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': this.props.csrf_token,
-          'Authorization': `Token ${this.props.auth_token}`
-        }
-      });
-      const editResponseJson = await editResponse.json();
-      console.log(editResponseJson);
-      const editedCarArray = this.state.cars.map((car) => {
-        if (car.id === this.state.editCarId) {
-          car.make = editResponseJson.make;
-          car.model = editResponseJson.model;
-          car.year = editResponseJson.year;
-          car.img_url = editResponseJson.img_url;
-          car.description = editResponseJson.description;
-        }
-        return car
-      });
-      this.setState({
-        car: editedCarArray,
-        showEdit: false
-      });
-      this.toggle1();
-    } catch (err) {
-      console.log(err);
-    }
+    const data = { editCarId: this.state.editCarId, carToEdit: this.state.carToEdit, csrfmiddlewaretoken: this.props.csrf_token, auth_token: this.props.auth_token }
+    this.props.triggerEditCarAction(data);
+    this.setState({
+      showEdit: false
+    });
+    this.toggle1();
   }
 
 
@@ -322,6 +283,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchCsrfToken: () => { fetchCsrfTokenAction(dispatch) },
     triggerAddCarAction: (data) => { addCarAction(dispatch, data) },
     triggerDeleteCarAction: (data) => { deleteCarAction(dispatch, data) },
+    triggerEditCarAction: (data) => { editCarAction(dispatch, data) },
+
 
   }
 };

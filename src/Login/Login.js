@@ -29,7 +29,7 @@ class Login extends React.Component {
             <Form onSubmit={this.props.handleSubmit} inline>
               <FormGroup>
                 <Label for="exampleEmail" hidden>Email</Label>
-                <Input type="text" name="username" id="exampleEmail" onChange={this.props.handleChange} placeholder="Email (username)" />
+                <Input type="text" name="username" id="exampleEmail" onChange={this.props.handleChange} placeholder="Username" />
               </FormGroup>
               {' '}
               <FormGroup>
