@@ -14,8 +14,8 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -26,7 +26,9 @@ SECRET_KEY = 'wfxppy8u+b!i^+5hva5wg6rd5k85ui6yj2wzck#k(0dyzi2_w7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ghostrider-react-django-python.herokuapp.com', '127.0.0.1:8000']
+# ALLOWED_HOSTS = ['ghostrider-react-django-python.herokuapp.com', '127.0.0.1:8000', 'localhost:8000']
+ALLOWED_HOSTS = []
+
 
 # Application definition
 

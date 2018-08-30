@@ -5,7 +5,7 @@ import EditComment from './CRUDComments/EditComment';
 
 const Comments = (props) => {
 
-  let apiCarID = 'https://ghostrider-react-django-python.herokuapp.com/users/api/cars/' + props.carID;
+  let apiCarID = 'http://localhost:8000/api/cars/' + props.carID;
 
   const commentList = props.comments.map((comment, i) => {
     // console.log(comment, ' comment id, this is why we needed the checkbox, will discuss')

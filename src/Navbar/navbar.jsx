@@ -9,7 +9,7 @@ import {
     NavLink,
 } from 'reactstrap';
 import Login from '../Login/Login';
-// import Logout from '../Logout';
+import Logout from '../Login/Logout';
 import Register from '../Login/Register';
 // import classes from './Navbar.css';
 
@@ -27,6 +27,15 @@ export default class NavbarComponent extends React.Component {
         });
     }
     render(props) {
+        let loginResgisterLogout;
+        let register;
+        console.log('## isLogged :', this.props.isLogged)
+        if (this.props.isLogged) {
+            loginResgisterLogout = <Logout />;
+        } else {
+            loginResgisterLogout = <span class="login-area"> <Login username={this.props.username} password={this.props.password} handleChange={this.props.handleChange} handleSubmit={this.props.handleSubmit}
+            /> <Register handleChange={this.props.handleChange} handleRegistration={this.props.handleRegistration} /></span>
+        }
         return (
             <div>
                 <Navbar color="rgba(24,24,24,0.9)" light expand="md" className='navBar'>
@@ -34,9 +43,8 @@ export default class NavbarComponent extends React.Component {
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
-                            <Login username={this.props.username} password={this.props.password} handleChange={this.props.handleChange} handleSubmit={this.props.handleSubmit}
-                            />
-                            <Register handleChange={this.props.handleChange} handleRegistration={this.props.handleRegistration} />
+                            {loginResgisterLogout}
+
                         </Nav>
                     </Collapse>
                 </Navbar>

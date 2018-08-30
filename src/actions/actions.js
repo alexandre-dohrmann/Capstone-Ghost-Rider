@@ -8,7 +8,7 @@ import { EDIT_CAR_ACTION } from './actionTypes';
 
 
 export const fetchCsrfTokenAction = async (dispatch) => {
-    const token = await fetch('https://ghostrider-react-django-python.herokuapp.com/api/get_csrf/', {
+    const token = await fetch('http://localhost:8000/api/get_csrf/', {
         credentials: 'include'
     })
     const parsedToken = await token.json()
@@ -23,7 +23,7 @@ export const fetchCsrfTokenAction = async (dispatch) => {
 export const loginAction = async (dispatch, data) => {
     console.log(data);
     console.log('IN LOGIN ACTION')
-    const loginResponse = await fetch('https://ghostrider-react-django-python.herokuapp.com/get_auth_token/', {
+    const loginResponse = await fetch('http://localhost:8000/get_auth_token/', {
         credentials: 'include',
         method: 'POST',
         body: JSON.stringify(
@@ -47,7 +47,7 @@ export const loginAction = async (dispatch, data) => {
 };
 
 export const getCarsAction = async (dispatch, Alex) => {
-    const cars = await fetch('https://ghostrider-react-django-python.herokuapp.com/api/cars/');
+    const cars = await fetch('http://localhost:8000/api/cars/');
     const carsJson = await cars.json();
     console.log("THIS IS GETTING CARS", Alex)
     dispatch({
@@ -59,7 +59,7 @@ export const getCarsAction = async (dispatch, Alex) => {
 export const addCarAction = async (dispatch, data) => {
     console.log(data);
     console.log('IN LOGIN ACTION')
-    const createdCar = await fetch('https://ghostrider-react-django-python.herokuapp.com/api/cars/', {
+    const createdCar = await fetch('http://localhost:8000/api/cars/', {
         method: 'POST',
         body: JSON.stringify(data),
 
@@ -79,7 +79,7 @@ export const addCarAction = async (dispatch, data) => {
 };
 
 export const deleteCarAction = async (dispatch, data) => {
-    const deleteCar = await fetch('https://ghostrider-react-django-python.herokuapp.com/api/cars/' + data.id, {
+    const deleteCar = await fetch('http://localhost:8000/api/cars/' + data.id, {
         method: 'DELETE',
         credentials: 'include',
         headers: {
@@ -102,7 +102,7 @@ export const deleteCarAction = async (dispatch, data) => {
 
 export const editCarAction = async (dispatch, data) => {
     console.log(data)
-    const editResponse = await fetch('https://ghostrider-react-django-python.herokuapp.com/api/cars/' + data.editCarId, {
+    const editResponse = await fetch('http://localhost:8000/api/cars/' + data.editCarId, {
         method: 'PUT',
         body: JSON.stringify(data.carToEdit),
         credentials: 'include',
