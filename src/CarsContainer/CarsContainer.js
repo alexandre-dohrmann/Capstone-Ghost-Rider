@@ -7,6 +7,7 @@ import EditCar from './CRUDCars/EditCar';
 import EditComment from './CRUDComments/EditComment';
 import classes from './CarsContainer.css';
 import { fetchCsrfTokenAction, addCarAction, deleteCarAction, editCarAction } from '../actions/actions';
+import ChatApp from '../ChatContainer/ChatApp';
 
 
 
@@ -243,7 +244,6 @@ class CarsContainer extends Component {
             </ModalFooter>
           </Modal>
         </div>
-
         <Cars
           deleteCar={this.deleteCar}
           showModal={this.showModal}
@@ -262,6 +262,8 @@ class CarsContainer extends Component {
           handleCommentFormChange={this.handleCommentFormChange}
           commentToEdit={this.state.commentToEdit}
         />
+        <ChatApp />
+
 
       </div>
     )

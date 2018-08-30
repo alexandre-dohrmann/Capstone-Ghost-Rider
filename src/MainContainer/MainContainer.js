@@ -11,6 +11,7 @@ import { loginAction } from '../actions/actions';
 
 
 
+
 class MainContainer extends Component {
   constructor() {
     super();
@@ -125,7 +126,7 @@ class MainContainer extends Component {
         </div>
         <NavbarComponent username={this.state.username} password={this.state.password} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleRegistration={this.handleRegistration} isLogged={this.state.isLogged} />
         <img src={require('./Ghost-Rider-Final.png')} className="logo" />
-        <CarsContainer auth_token={this.state.auth_token} /><br />
+        <CarsContainer auth_token={this.state.auth_token} /><br/>
         <small className="copyright">&copy; 2018 (g)HOST/RIDER<br /><img src={require('./Ghost-Rider-Final.png')} className="logo-small" />
         </small>
       </div>

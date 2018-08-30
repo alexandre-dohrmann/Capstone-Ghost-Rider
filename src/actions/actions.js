@@ -58,7 +58,6 @@ export const getCarsAction = async (dispatch, Alex) => {
 
 export const addCarAction = async (dispatch, data) => {
     console.log(data);
-    console.log('IN LOGIN ACTION')
     const createdCar = await fetch('http://localhost:8000/api/cars/', {
         method: 'POST',
         body: JSON.stringify(data),
