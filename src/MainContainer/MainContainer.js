@@ -9,8 +9,6 @@ import classes from './MainContainer.css';
 import WelcomePageModal from './WelcomePageModal';
 import { loginAction } from '../actions/actions';
 
-
-
 class MainContainer extends Component {
   constructor() {
     super();
@@ -103,6 +101,15 @@ class MainContainer extends Component {
     })
   }
 
+  handleLogout = async (e) => {
+    console.log("## Got to Logout");
+    
+    e.preventDefault();
+    this.setState({
+      isLogged: false,
+      auth_token: ''
+    })
+  }
 
   render() {
     console.log('## Auth CSRF is: ', this.props.csrf_token);
@@ -123,9 +130,9 @@ class MainContainer extends Component {
             </ModalFooter>
           </Modal>
         </div>
-        <NavbarComponent username={this.state.username} password={this.state.password} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleRegistration={this.handleRegistration} isLogged={this.state.isLogged} />
+        <NavbarComponent username={this.state.username} password={this.state.password} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleRegistration={this.handleRegistration} isLogged={this.state.isLogged} auth_token={this.state.auth_token} handleLogout={this.state.handleLogout}/>
         <img src={require('./Ghost-Rider-Final.png')} className="logo" />
-        <CarsContainer auth_token={this.state.auth_token} /><br />
+        <CarsContainer auth_token={this.state.auth_token} /><br/>
         <small className="copyright">&copy; 2018 (g)HOST/RIDER<br /><img src={require('./Ghost-Rider-Final.png')} className="logo-small" />
         </small>
       </div>

@@ -31,7 +31,7 @@ export default class NavbarComponent extends React.Component {
         let register;
         console.log('## isLogged :', this.props.isLogged)
         if (this.props.isLogged) {
-            loginResgisterLogout = <Logout />;
+            loginResgisterLogout = <Logout isLogged={this.props.isLogged} auth_token={this.props.auth_token} handleLogout={this.props.handleLogout}/>;
         } else {
             loginResgisterLogout = <span class="login-area"> <Login username={this.props.username} password={this.props.password} handleChange={this.props.handleChange} handleSubmit={this.props.handleSubmit}
             /> <Register handleChange={this.props.handleChange} handleRegistration={this.props.handleRegistration} /></span>
@@ -41,9 +41,10 @@ export default class NavbarComponent extends React.Component {
                 <Navbar color="rgba(24,24,24,0.9)" light expand="md" className='navBar'>
                     <NavbarBrand href="/" image-src="/public/images" ></NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
+                    {this.props.isLogged ? <button>Welcome {this.props.username}</button> : null}
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
-                            {loginResgisterLogout}
+                        {loginResgisterLogout}
 
                         </Nav>
                     </Collapse>
