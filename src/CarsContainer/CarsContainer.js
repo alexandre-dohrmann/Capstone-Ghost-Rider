@@ -262,7 +262,6 @@ class CarsContainer extends Component {
           handleCommentFormChange={this.handleCommentFormChange}
           commentToEdit={this.state.commentToEdit}
         />
-        <ChatApp />
 
 
       </div>

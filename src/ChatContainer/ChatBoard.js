@@ -29,16 +29,16 @@ export default class ChatBoard extends Component {
     socket.on('updateUserList', (username) => {
       console.log("New User Joined");
       console.log(username);
-      
-      this.setState({ 
+
+      this.setState({
         // usernames: [...this.state.usernames, username]});      
         usernames: username
-      });      
+      });
 
     });
 
     // listen for new messages sent from server
-    socket.on('newMessage',  (message) => {
+    socket.on('newMessage', (message) => {
       console.log('## Got New Message');
       console.log('## Message is ', message)
       console.log('## Message.text is ', message.text);
@@ -53,16 +53,16 @@ export default class ChatBoard extends Component {
     this.setState({
       [e.target.name]: e.target.value
     })
-  } 
+  }
 
   handleSubmit = async (e) => {
     e.preventDefault();
     // await this.setState({
     //   messages: [...this.state.messages, this.state.newMessage]
     // })
-    console.log('User is: ', this.props.user);   
+    console.log('User is: ', this.props.user);
     console.log('Messages is :', this.state.newMessage);
-    
+
     socket.emit('createMessage', {
       text: this.state.newMessage
     }, function () {
@@ -88,10 +88,10 @@ export default class ChatBoard extends Component {
     return (
       <main>
         <div class="chat__main">
-          <ol id="messages" class="chat__messages"></ol>
-          
-          <ul>{messagesList}</ul>
-          
+          <div className="chat-feed">
+            <ol id="messages" class="chat__messages"></ol>
+            <ul>{messagesList}</ul>
+          </div>
           <div class="chat__footer">
             <form onSubmit={this.handleSubmit}>
               <input type="text" name="newMessage" ref={el => this.inputEntry = el} onChange={this.handleInputChange} placeholder="Message" autofocus autocomplete="off" />

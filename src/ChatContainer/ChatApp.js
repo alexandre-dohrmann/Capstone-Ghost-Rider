@@ -16,7 +16,7 @@ class ChatApp extends Component {
   }
 
   handleChange = (e) => {
-    
+
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -28,7 +28,7 @@ class ChatApp extends Component {
       room: this.state.room,
       loggedIn: !this.state.loggedIn
     })
-    
+
     socket.emit('join', {
       name: this.state.name,
       room: this.state.room
@@ -37,8 +37,8 @@ class ChatApp extends Component {
   }
   render() {
     return (
-      <div className="App">
-        {this.state.loggedIn ? <ChatBoard user={this.state.name}/> : <Login handleChange={this.handleChange} handleSubmit={this.handleSubmit} />}
+      <div className="App chatting">
+        {this.state.loggedIn ? <ChatBoard user={this.state.name} /> : <Login handleChange={this.handleChange} handleSubmit={this.handleSubmit} />}
       </div>
     );
   }

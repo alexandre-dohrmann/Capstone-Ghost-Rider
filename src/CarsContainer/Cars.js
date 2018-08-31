@@ -6,6 +6,7 @@ import CreateComment from './CRUDComments/AddComment';
 import EditCar from './CRUDCars/EditCar';
 import { connect } from 'react-redux';
 import { getCarsAction } from '../actions/actions';
+import ChatApp from '../ChatContainer/ChatApp';
 
 
 class Cars extends Component {
@@ -39,6 +40,7 @@ class Cars extends Component {
               <div className="car-image-div">
                 <img className="car-image" src={car.img_url} />
               </div>
+              <ChatApp />
             </div>
             <br /><br /> <br />
             <h4 className="user-comments">User Comments on {car.make} - {car.model}:</h4><br />

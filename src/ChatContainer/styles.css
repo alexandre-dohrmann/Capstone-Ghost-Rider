@@ -64,7 +64,9 @@ button:disabled {
   margin: 20px;
   width: 230px
 }
-
+.chatting {
+  display: inline-block;
+}
 .form-field {
   margin: 20px 0
 }

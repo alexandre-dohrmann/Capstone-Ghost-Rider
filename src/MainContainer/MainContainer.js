@@ -63,7 +63,7 @@ class MainContainer extends Component {
         'X-CSRFToken': this.props.csrf_token,
       }
     });
-    
+
     if (registrationResponse.status === 201) {
       const data = { ...this.state, csrfmiddlewaretoken: this.props.csrf_token };
       // console.log(parsedResponse.status);
@@ -79,23 +79,23 @@ class MainContainer extends Component {
     }
 
   }
-    // console.log('### Registration response :', registrationResponse);
-    // console.log('### Registration response. status: ', registrationResponse.status);
-    // console.log('## Parsed RESPONSE', parsedResponse);
+  // console.log('### Registration response :', registrationResponse);
+  // console.log('### Registration response. status: ', registrationResponse.status);
+  // console.log('## Parsed RESPONSE', parsedResponse);
 
-    // console.log(parsedResponse.status, '### PARSED RESPONSE - status');
-    // console.log(parsedResponse, '### PARSED RESPONSE');
+  // console.log(parsedResponse.status, '### PARSED RESPONSE - status');
+  // console.log(parsedResponse, '### PARSED RESPONSE');
 
 
-    // console.log('### 2 - Parsed Response status: ', parsedResponse.status);
-  
+  // console.log('### 2 - Parsed Response status: ', parsedResponse.status);
+
 
   handleSubmit = async (e) => {
     console.log(this.props.csrf_token)
     e.preventDefault();
     const data = { ...this.state, csrfmiddlewaretoken: this.props.csrf_token };
     this.props.triggerLogin(data)
-    
+
     this.setState({
       isLogged: true
     })
@@ -103,7 +103,7 @@ class MainContainer extends Component {
 
   handleLogout = async (e) => {
     console.log("## Got to Logout");
-    
+
     e.preventDefault();
     this.setState({
       isLogged: false,
@@ -114,7 +114,7 @@ class MainContainer extends Component {
   render() {
     console.log('## Auth CSRF is: ', this.props.csrf_token);
     console.log('## Auth Token is: ', this.state.auth_token);
-    
+
     return (
       <div className='mainContainer'>
         <div className="welcomePage">
@@ -130,9 +130,9 @@ class MainContainer extends Component {
             </ModalFooter>
           </Modal>
         </div>
-        <NavbarComponent username={this.state.username} password={this.state.password} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleRegistration={this.handleRegistration} isLogged={this.state.isLogged} auth_token={this.state.auth_token} handleLogout={this.state.handleLogout}/>
+        <NavbarComponent username={this.state.username} password={this.state.password} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleRegistration={this.handleRegistration} isLogged={this.state.isLogged} auth_token={this.state.auth_token} handleLogout={this.state.handleLogout} />
         <img src={require('./Ghost-Rider-Final.png')} className="logo" />
-        <CarsContainer auth_token={this.state.auth_token} /><br/>
+        <CarsContainer auth_token={this.state.auth_token} /><br />
         <small className="copyright">&copy; 2018 (g)HOST/RIDER<br /><img src={require('./Ghost-Rider-Final.png')} className="logo-small" />
         </small>
       </div>
