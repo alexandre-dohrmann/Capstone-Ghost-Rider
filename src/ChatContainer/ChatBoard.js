@@ -80,25 +80,31 @@ export default class ChatBoard extends Component {
     })
     const messagesList = this.state.messages.map((message, i) => {
       return (
-        <li>{message.from}: {message.text}</li>
+        <div>
+          <div>
+            <li className="chat-user-name">{message.from}: <span className="chat-user-text">{message.text}</span></li>
+          </div>
+        </div>
       )
     })
 
 
     return (
-      <main>
-        <div class="chat__main">
-          <div className="chat-feed">
-            <ol id="messages" class="chat__messages"></ol>
-            <ul>{messagesList}</ul>
+      <main className="chat-holder">
+        <div className="chat-div-area">
+          <div class="chat__main">
+            <div className="chat-feed">
+              <ol id="messages" class="chat__messages"></ol>
+              <ul>{messagesList}</ul>
+            </div>
           </div>
-          <div class="chat__footer">
-            <form onSubmit={this.handleSubmit}>
-              <input type="text" name="newMessage" ref={el => this.inputEntry = el} onChange={this.handleInputChange} placeholder="Message" autofocus autocomplete="off" />
-              <button>Send</button>
-            </form>
-            <button id="send-location" type="button" name="button">Send location</button>
-          </div>
+        </div>
+        <div class="chat__footer">
+          <form onSubmit={this.handleSubmit}>
+            <input type="text" name="newMessage" ref={el => this.inputEntry = el} onChange={this.handleInputChange} placeholder="Message" autofocus autocomplete="off" />
+            <button>Send</button>
+          </form>
+          <button id="send-location" type="button" name="button">Send location</button>
         </div>
       </main>
     )

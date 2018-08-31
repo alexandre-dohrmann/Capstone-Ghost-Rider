@@ -11,14 +11,14 @@ export default class Login extends Component {
       <div class="centered-form__form">
         <form onSubmit={this.props.handleSubmit}>
           <div class="form-field">
-            <h3>Join a Chat</h3>
+            <h4>Chat About This Car:</h4>
           </div>
           <div class="form-field">
-            <label>Display name</label>
-            <input type="text" name="name" placeholder="name" onChange={this.props.handleChange} autofocus/>
+            <label>Display Name:</label>
+            <input type="text" name="name" placeholder="name" onChange={this.props.handleChange} autofocus />
           </div>
           <div class="form-field">
-            <label>Room name</label>
+            <label>Room Name <br />(Type this this car's name [all lowercase]):</label>
             <input type="text" name="room" placeholder="room" onChange={this.props.handleChange} />
           </div>
           <div class="form-field">

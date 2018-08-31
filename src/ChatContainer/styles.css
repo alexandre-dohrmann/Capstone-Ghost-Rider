@@ -5,20 +5,42 @@ button, button:hover {
 }
 
 .chat__messages, .chat__sidebar ul {
-  list-style-type: none
+  list-style-type: none;
+  max-height: 400px;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: HelveticaNeue-Light, "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: 'Open Sans Condensed', sans-serif;
   font-weight: 300;
   font-size: .95rem
 }
 
+.chat-div-area {
+  background-color: white;
+  width: 400px;
+  margin: 0 auto;
+  border: solid 1px #ccc;
+  border-radius: 5px;
+  overflow: scroll;
+}
+
+.chat-user-name {
+  font-size: 16px !important;
+  color: red !important;
+}
+
+.chat-user-text {
+  font-size: 16px !important;
+  color: black !important;
+}
+
 li, ul {
-  list-style-position: inside
+  list-style-position: inside;
+  list-style-type: none;
+  
 }
 
 h3 {
@@ -62,10 +84,11 @@ button:disabled {
   border-radius: 5px;
   padding: 0 20px;
   margin: 20px;
-  width: 230px
+  width: 300px
 }
 .chatting {
   display: inline-block;
+  max-height: 400px;
 }
 .form-field {
   margin: 20px 0
@@ -118,10 +141,18 @@ button:disabled {
   margin: 10px
 }
 
+.chat-holder {
+  border: inset;
+  border-color:  1px black !important;
+  border-radius: 10px !important;
+  padding: 10px;
+
+}
+
 .chat__main {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  max-height: 300px;;
   width: 100%
 }
 
@@ -134,7 +165,9 @@ button:disabled {
 
 .chat__footer {
   display: flex;
-  flex-shrink: 0
+  flex-shrink: 0;
+  margin-top: 10px;
+
 }
 
 .chat__footer form {

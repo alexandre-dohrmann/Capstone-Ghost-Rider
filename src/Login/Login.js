@@ -27,17 +27,19 @@ class Login extends React.Component {
           <ModalHeader toggle={this.toggle}>Login</ModalHeader>
           <ModalBody>
             <Form onSubmit={this.props.handleSubmit} inline>
-              <FormGroup>
+              <FormGroup className="reg-logs">
                 <Label for="exampleEmail" hidden>Email</Label>
                 <Input type="text" name="username" id="exampleEmail" onChange={this.props.handleChange} placeholder="Username" />
               </FormGroup>
               {' '}
-              <FormGroup>
+              <FormGroup className="reg-logs">
                 <Label for="examplePassword" hidden>Password</Label>
                 <Input type="password" name="password" id="examplePassword" onChange={this.props.handleChange} placeholder="Password" />
               </FormGroup>
               {' '}
-              <Button type="submit" onClick={this.toggle}>Login</Button>
+              <div className="log-log-button">
+                <Button type="submit" onClick={this.toggle}>Login</Button>
+              </div>
             </Form>
           </ModalBody>
         </Modal>
