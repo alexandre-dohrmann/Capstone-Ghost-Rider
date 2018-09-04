@@ -155,6 +155,9 @@ button:disabled {
   max-height: 300px;;
   width: 100%
 }
+.chat-room {
+  color: red;
+}
 
 .chat__messages {
   flex-grow: 1;

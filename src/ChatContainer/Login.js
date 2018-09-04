@@ -18,7 +18,7 @@ export default class Login extends Component {
             <input type="text" name="name" placeholder="name" onChange={this.props.handleChange} autofocus />
           </div>
           <div class="form-field">
-            <label>Room Name <br />(Type this this car's name [all lowercase]):</label>
+            <label>Room Name: <br /><small className="chat-room">(Type this car's year - NUMBERS ONLY)</small></label>
             <input type="text" name="room" placeholder="room" onChange={this.props.handleChange} />
           </div>
           <div class="form-field">
